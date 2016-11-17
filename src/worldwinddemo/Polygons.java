@@ -14,9 +14,11 @@ import gov.nasa.worldwind.geom.Position;
 import gov.nasa.worldwind.layers.RenderableLayer;
 import gov.nasa.worldwind.render.BasicShapeAttributes;
 import gov.nasa.worldwind.render.Material;
+import gov.nasa.worldwind.render.Path;
 import gov.nasa.worldwind.render.Polygon;
 import gov.nasa.worldwind.render.ShapeAttributes;
 import gov.nasa.worldwind.util.BasicDragger;
+import gov.nasa.worldwind.util.WWUtil;
 
 /**
  * Example of {@link Polygon} usage. Sets material, opacity and other attributes. Sets rotation and other properties.
@@ -40,14 +42,14 @@ public class Polygons extends ApplicationTemplate
 
             // Create and set an attribute bundle.
             ShapeAttributes normalAttributes = new BasicShapeAttributes();
-            normalAttributes.setInteriorMaterial(Material.YELLOW);
+//            normalAttributes.setInteriorMaterial(Material.YELLOW);
             normalAttributes.setOutlineOpacity(0.5);
             normalAttributes.setInteriorOpacity(0.8);
             normalAttributes.setOutlineMaterial(Material.GREEN);
             normalAttributes.setOutlineWidth(2);
             normalAttributes.setDrawOutline(true);
-            normalAttributes.setDrawInterior(true);
-            normalAttributes.setEnableLighting(true);
+            normalAttributes.setDrawInterior(false);
+            normalAttributes.setEnableLighting(false);
 
             ShapeAttributes highlightAttributes = new BasicShapeAttributes(normalAttributes);
             highlightAttributes.setOutlineMaterial(Material.WHITE);
@@ -74,31 +76,77 @@ public class Polygons extends ApplicationTemplate
             pgon.setHighlightAttributes(highlightAttributes);
             pgon.setRotation(-170d);
             layer.addRenderable(pgon);
+            
+//          ArrayList<Position> pathLocations = new ArrayList<Position>();
+//          pathLocations.add(Position.fromDegrees(34, -118, 10));
+//          pathLocations.add(Position.fromDegrees(34, -119, 10));
+//          pathLocations.add(Position.fromDegrees(35, -119, 10));
+//          pathLocations.add(Position.fromDegrees(34, -119, 10));
+//          pathLocations.add(Position.fromDegrees(34, -118, 10));
+//          pgon = new Polygon(pathLocations);
+//          pgon.setValue(AVKey.DISPLAY_NAME, "Has an image");
+//        normalAttributes = new BasicShapeAttributes(normalAttributes);
+//        normalAttributes.setDrawInterior(true);
+//        normalAttributes.setInteriorMaterial(Material.WHITE);
+//        normalAttributes.setInteriorOpacity(1);
+//        pgon.setAttributes(normalAttributes);
+//        pgon.setHighlightAttributes(highlightAttributes);
+//        float[] texCoords = new float[] {0, 0, 1, 0, 1, 1, 0, 1, 0, 0};
+//        pgon.setTextureImageSource("images/32x32-icon-nasa.png", texCoords, 5);
+//        layer.addRenderable(pgon);
 
             ArrayList<Position> pathLocations = new ArrayList<Position>();
-            pathLocations.add(Position.fromDegrees(28, -110, 5e4));
-            pathLocations.add(Position.fromDegrees(35, -108, 5e4));
-            pathLocations.add(Position.fromDegrees(35, -111, 5e4));
-            pathLocations.add(Position.fromDegrees(28, -111, 5e4));
-            pathLocations.add(Position.fromDegrees(28, -110, 5e4));
+            pathLocations.add(Position.fromDegrees(34, -118, 0));
+            pathLocations.add(Position.fromDegrees(34, -119, 0));
+            pathLocations.add(Position.fromDegrees(36, -118.7, 5e4));
             pgon = new Polygon(pathLocations);
             pgon.setValue(AVKey.DISPLAY_NAME, "Has an image");
             normalAttributes = new BasicShapeAttributes(normalAttributes);
-            normalAttributes.setDrawInterior(true);
-            normalAttributes.setInteriorMaterial(Material.WHITE);
+//            normalAttributes.setDrawInterior(true);
+//            normalAttributes.setInteriorMaterial(Material.WHITE);
             normalAttributes.setInteriorOpacity(1);
             pgon.setAttributes(normalAttributes);
             pgon.setHighlightAttributes(highlightAttributes);
-            float[] texCoords = new float[] {0, 0, 1, 0, 1, 1, 0, 1, 0, 0};
-            pgon.setTextureImageSource("images/32x32-icon-nasa.png", texCoords, 5);
+//            float[] texCoords = new float[] {0, 0, 1, 0, 1, 1, 0, 1, 0, 0};
+//            pgon.setTextureImageSource("images/32x32-icon-nasa.png", texCoords, 5);
             layer.addRenderable(pgon);
-
+            
             pathLocations.clear();
-            pathLocations.add(Position.fromDegrees(28, -170, 29e4));
-            pathLocations.add(Position.fromDegrees(35, -174, 29e4));
-            pathLocations.add(Position.fromDegrees(35, 174, 29e4));
-            pathLocations.add(Position.fromDegrees(28, 170, 29e4));
-            pathLocations.add(Position.fromDegrees(28, -170, 29e4));
+            pathLocations.add(Position.fromDegrees(34, -119, 0));
+            pathLocations.add(Position.fromDegrees(35, -119, 0));
+            pathLocations.add(Position.fromDegrees(36, -118.7, 5e4));
+            pgon = new Polygon(pathLocations);
+            pgon.setValue(AVKey.DISPLAY_NAME, "Has an image");
+            normalAttributes = new BasicShapeAttributes(normalAttributes);
+//            normalAttributes.setDrawInterior(true);
+//            normalAttributes.setInteriorMaterial(Material.WHITE);
+            normalAttributes.setInteriorOpacity(1);
+            pgon.setAttributes(normalAttributes);
+            pgon.setHighlightAttributes(highlightAttributes);
+//            pgon.setTextureImageSource("images/32x32-icon-nasa.png", texCoords, 5);
+            layer.addRenderable(pgon);
+            
+            pathLocations.clear();
+            pathLocations.add(Position.fromDegrees(35, -119, 0));
+            pathLocations.add(Position.fromDegrees(35, -118, 0));
+            pathLocations.add(Position.fromDegrees(36, -118.7, 5e4));
+            pgon = new Polygon(pathLocations);
+            pgon.setValue(AVKey.DISPLAY_NAME, "Has an image");
+            normalAttributes = new BasicShapeAttributes(normalAttributes);
+//            normalAttributes.setDrawInterior(true);
+//            normalAttributes.setInteriorMaterial(Material.WHITE);
+            normalAttributes.setInteriorOpacity(1);
+            pgon.setAttributes(normalAttributes);
+            pgon.setHighlightAttributes(highlightAttributes);
+//            pgon.setTextureImageSource("images/32x32-icon-nasa.png", texCoords, 5);
+            layer.addRenderable(pgon);
+            
+            pathLocations = new ArrayList<Position>();
+            pathLocations.add(Position.fromDegrees(34, -118, 0));
+            pathLocations.add(Position.fromDegrees(34, -119, 0));
+            pathLocations.add(Position.fromDegrees(35, -119, 0));
+            pathLocations.add(Position.fromDegrees(35, -118, 0));
+            pathLocations.add(Position.fromDegrees(34, -118, 0));
             pgon = new Polygon(pathLocations);
             pgon.setValue(AVKey.DISPLAY_NAME, "Spans dateline\nRotated -45\u00b0");
             normalAttributes = new BasicShapeAttributes(normalAttributes);
@@ -106,8 +154,7 @@ public class Polygons extends ApplicationTemplate
             pgon.setAttributes(normalAttributes);
             pgon.setHighlightAttributes(highlightAttributes);
             pgon.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
-            pgon.setRotation(-45d);
-            layer.addRenderable(pgon);
+            layer.addRenderable(pgon);           
 
             // Add the layer to the model.
             insertBeforeCompass(getWwd(), layer);
