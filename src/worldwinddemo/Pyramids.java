@@ -60,7 +60,7 @@ public class Pyramids extends ApplicationTemplate
             pyramid3.setAttributes(attrs);
             pyramid3.setVisible(true);
             pyramid3.setValue(AVKey.DISPLAY_NAME, "Pyramid with equal axes, ABSOLUTE altitude mode");
-            layer.addRenderable(pyramid3);
+          //  layer.addRenderable(pyramid3);
 
             // Pyramid with equal axes, RELATIVE_TO_GROUND
             Pyramid pyramid4 = new Pyramid(Position.fromDegrees(37.5, -115, 50000), 50000, 50000, 50000);
@@ -68,7 +68,7 @@ public class Pyramids extends ApplicationTemplate
             pyramid4.setAttributes(attrs);
             pyramid4.setVisible(true);
             pyramid4.setValue(AVKey.DISPLAY_NAME, "Pyramid with equal axes, RELATIVE_TO_GROUND altitude mode");
-            layer.addRenderable(pyramid4);
+          //  layer.addRenderable(pyramid4);
 
             // Pyramid with equal axes, CLAMP_TO_GROUND
             Pyramid pyramid5 = new Pyramid(Position.fromDegrees(35, -110, 50000), 50000, 50000, 50000);
@@ -76,7 +76,7 @@ public class Pyramids extends ApplicationTemplate
             pyramid5.setAttributes(attrs);
             pyramid5.setVisible(true);
             pyramid5.setValue(AVKey.DISPLAY_NAME, "Pyramid with equal axes, CLAMP_TO_GROUND altitude mode");
-            layer.addRenderable(pyramid5);
+          //  layer.addRenderable(pyramid5);
 
             // Pyramid with a texture, using Pyramid(position, height, width) constructor
             Pyramid pyramid9 = new Pyramid(Position.fromDegrees(0, -90, 600000), 1200000, 1200000);
@@ -85,7 +85,7 @@ public class Pyramids extends ApplicationTemplate
             pyramid9.setAttributes(attrs);
             pyramid9.setVisible(true);
             pyramid9.setValue(AVKey.DISPLAY_NAME, "Pyramid with a texture");
-            layer.addRenderable(pyramid9);
+           // layer.addRenderable(pyramid9);
 
             // Scaled Pyramid with default orientation
             Pyramid pyramid = new Pyramid(Position.ZERO, 1000000, 500000, 100000);
@@ -93,7 +93,7 @@ public class Pyramids extends ApplicationTemplate
             pyramid.setAttributes(attrs);
             pyramid.setVisible(true);
             pyramid.setValue(AVKey.DISPLAY_NAME, "Scaled Pyramid with default orientation");
-            layer.addRenderable(pyramid);
+            //layer.addRenderable(pyramid);
 
             // Scaled Pyramid with a pre-set orientation
             Pyramid pyramid2 = new Pyramid(Position.fromDegrees(0, 30, 750000), 1000000, 500000, 100000,
@@ -102,7 +102,7 @@ public class Pyramids extends ApplicationTemplate
             pyramid2.setAttributes(attrs2);
             pyramid2.setVisible(true);
             pyramid2.setValue(AVKey.DISPLAY_NAME, "Scaled Pyramid with a pre-set orientation");
-            layer.addRenderable(pyramid2);
+           // layer.addRenderable(pyramid2);
 
             // Scaled Pyramid with a pre-set orientation
             Pyramid pyramid6 = new Pyramid(Position.fromDegrees(30, 30, 750000), 1000000, 500000, 100000,
@@ -112,7 +112,7 @@ public class Pyramids extends ApplicationTemplate
             pyramid6.setAttributes(attrs2);
             pyramid6.setVisible(true);
             pyramid6.setValue(AVKey.DISPLAY_NAME, "Scaled Pyramid with a pre-set orientation");
-            layer.addRenderable(pyramid6);
+            //layer.addRenderable(pyramid6);
 
             // Scaled Pyramid with a pre-set orientation
             Pyramid pyramid7 = new Pyramid(Position.fromDegrees(60, 30, 750000), 1000000, 500000, 100000,
@@ -121,11 +121,11 @@ public class Pyramids extends ApplicationTemplate
             pyramid7.setAttributes(attrs2);
             pyramid7.setVisible(true);
             pyramid7.setValue(AVKey.DISPLAY_NAME, "Scaled Pyramid with a pre-set orientation");
-            layer.addRenderable(pyramid7);
+           // layer.addRenderable(pyramid7);
 
             // Scaled, oriented pyramid in 3rd "quadrant" (-X, -Y, -Z)
-            Pyramid pyramid8 = new Pyramid(Position.fromDegrees(-45, -180, 750000), 1000000, 500000, 100000,
-                Angle.fromDegrees(90), Angle.fromDegrees(45), Angle.fromDegrees(30));
+            Pyramid pyramid8 = new Pyramid(Position.fromDegrees(35.803285, 139.093283, 437.3439), 500, 437, 500,
+                Angle.fromRadians(2.27544665), Angle.fromRadians(0.046574286), Angle.fromRadians(0));
             pyramid8.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
             pyramid8.setAttributes(attrs2);
             pyramid8.setVisible(true);

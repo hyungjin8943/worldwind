@@ -43,40 +43,25 @@ public class Polygons extends ApplicationTemplate
             // Create and set an attribute bundle.
             ShapeAttributes normalAttributes = new BasicShapeAttributes();
 //            normalAttributes.setInteriorMaterial(Material.YELLOW);
-            normalAttributes.setOutlineOpacity(0.5);
-            normalAttributes.setInteriorOpacity(0.8);
+            normalAttributes.setOutlineOpacity(1);
+            normalAttributes.setInteriorOpacity(1);
             normalAttributes.setOutlineMaterial(Material.GREEN);
             normalAttributes.setOutlineWidth(2);
             normalAttributes.setDrawOutline(true);
             normalAttributes.setDrawInterior(false);
-            normalAttributes.setEnableLighting(false);
+            normalAttributes.setEnableLighting(true);
 
             ShapeAttributes highlightAttributes = new BasicShapeAttributes(normalAttributes);
             highlightAttributes.setOutlineMaterial(Material.WHITE);
             highlightAttributes.setOutlineOpacity(1);
 
-            // Create a polygon, set some of its properties and set its attributes.
-            ArrayList<Position> pathPositions = new ArrayList<Position>();
-            pathPositions.add(Position.fromDegrees(28, -106, 3e4));
-            pathPositions.add(Position.fromDegrees(35, -104, 3e4));
-            pathPositions.add(Position.fromDegrees(35, -107, 9e4));
-            pathPositions.add(Position.fromDegrees(28, -107, 9e4));
-            pathPositions.add(Position.fromDegrees(28, -106, 3e4));
-            Polygon pgon = new Polygon(pathPositions);
-            pgon.setValue(AVKey.DISPLAY_NAME, "Has a hole\nRotated -170\u00b0");
-
-            pathPositions.clear();
-            pathPositions.add(Position.fromDegrees(29, -106.4, 4e4));
-            pathPositions.add(Position.fromDegrees(30, -106.4, 4e4));
-            pathPositions.add(Position.fromDegrees(29, -106.8, 7e4));
-            pathPositions.add(Position.fromDegrees(29, -106.4, 4e4));
-            pgon.addInnerBoundary(pathPositions);
-            pgon.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
-            pgon.setAttributes(normalAttributes);
-            pgon.setHighlightAttributes(highlightAttributes);
-            pgon.setRotation(-170d);
-            layer.addRenderable(pgon);
             
+            // Create a polygon, set some of its properties and set its attributes.
+           
+           
+            
+
+           
 //          ArrayList<Position> pathLocations = new ArrayList<Position>();
 //          pathLocations.add(Position.fromDegrees(34, -118, 10));
 //          pathLocations.add(Position.fromDegrees(34, -119, 10));
@@ -96,65 +81,69 @@ public class Polygons extends ApplicationTemplate
 //        layer.addRenderable(pgon);
 
             ArrayList<Position> pathLocations = new ArrayList<Position>();
-            pathLocations.add(Position.fromDegrees(34, -118, 0));
-            pathLocations.add(Position.fromDegrees(34, -119, 0));
-            pathLocations.add(Position.fromDegrees(36, -118.7, 5e4));
-            pgon = new Polygon(pathLocations);
+            
+            pathLocations.add(Position.fromDegrees(33.01845636, 140.6493453, 10));
+            pathLocations.add(Position.fromDegrees(33.74608841, 136.6518606, 10));
+            pathLocations.add(Position.fromDegrees(35.803221, 139.095267, 447.07538));
+            Polygon pgon  = new Polygon(pathLocations);
+            pgon.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
             pgon.setValue(AVKey.DISPLAY_NAME, "Has an image");
             normalAttributes = new BasicShapeAttributes(normalAttributes);
 //            normalAttributes.setDrawInterior(true);
 //            normalAttributes.setInteriorMaterial(Material.WHITE);
             normalAttributes.setInteriorOpacity(1);
             pgon.setAttributes(normalAttributes);
-            pgon.setHighlightAttributes(highlightAttributes);
-//            float[] texCoords = new float[] {0, 0, 1, 0, 1, 1, 0, 1, 0, 0};
+            pgon.setVisible(true);
 //            pgon.setTextureImageSource("images/32x32-icon-nasa.png", texCoords, 5);
             layer.addRenderable(pgon);
             
             pathLocations.clear();
-            pathLocations.add(Position.fromDegrees(34, -119, 0));
-            pathLocations.add(Position.fromDegrees(35, -119, 0));
-            pathLocations.add(Position.fromDegrees(36, -118.7, 5e4));
+            pathLocations.add(Position.fromDegrees(33.74608841, 136.6518606, 10));
+            pathLocations.add(Position.fromDegrees(37.53696157, 137.5501718, 10));
+            pathLocations.add(Position.fromDegrees(35.803221, 139.095267, 447.07538));
             pgon = new Polygon(pathLocations);
+            pgon.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
             pgon.setValue(AVKey.DISPLAY_NAME, "Has an image");
             normalAttributes = new BasicShapeAttributes(normalAttributes);
 //            normalAttributes.setDrawInterior(true);
 //            normalAttributes.setInteriorMaterial(Material.WHITE);
             normalAttributes.setInteriorOpacity(1);
             pgon.setAttributes(normalAttributes);
-            pgon.setHighlightAttributes(highlightAttributes);
+            pgon.setVisible(true);
 //            pgon.setTextureImageSource("images/32x32-icon-nasa.png", texCoords, 5);
             layer.addRenderable(pgon);
             
             pathLocations.clear();
-            pathLocations.add(Position.fromDegrees(35, -119, 0));
-            pathLocations.add(Position.fromDegrees(35, -118, 0));
-            pathLocations.add(Position.fromDegrees(36, -118.7, 5e4));
+            pathLocations.add(Position.fromDegrees(37.53696157, 137.5501718, 10));
+            pathLocations.add(Position.fromDegrees(36.8722113, 141.1523996, 10));
+            pathLocations.add(Position.fromDegrees(35.803221, 139.095267, 447.07538));
             pgon = new Polygon(pathLocations);
             pgon.setValue(AVKey.DISPLAY_NAME, "Has an image");
+            pgon.setVisible(true);
+            pgon.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
             normalAttributes = new BasicShapeAttributes(normalAttributes);
 //            normalAttributes.setDrawInterior(true);
 //            normalAttributes.setInteriorMaterial(Material.WHITE);
             normalAttributes.setInteriorOpacity(1);
             pgon.setAttributes(normalAttributes);
-            pgon.setHighlightAttributes(highlightAttributes);
-//            pgon.setTextureImageSource("images/32x32-icon-nasa.png", texCoords, 5);
             layer.addRenderable(pgon);
+            
             
             pathLocations = new ArrayList<Position>();
-            pathLocations.add(Position.fromDegrees(34, -118, 0));
-            pathLocations.add(Position.fromDegrees(34, -119, 0));
-            pathLocations.add(Position.fromDegrees(35, -119, 0));
-            pathLocations.add(Position.fromDegrees(35, -118, 0));
-            pathLocations.add(Position.fromDegrees(34, -118, 0));
+            pathLocations.add(Position.fromDegrees(33.018456364,140.6493453, 0));
+            pathLocations.add(Position.fromDegrees(33.74608841,136.6518606, 0));
+            pathLocations.add(Position.fromDegrees(37.53696157,137.5501718, 0));
+            pathLocations.add(Position.fromDegrees(36.8722113,141.1523996, 0));
+            pathLocations.add(Position.fromDegrees(33.018456364,140.6493453, 0));
             pgon = new Polygon(pathLocations);
-            pgon.setValue(AVKey.DISPLAY_NAME, "Spans dateline\nRotated -45\u00b0");
+            pgon.setValue(AVKey.DISPLAY_NAME, "coverage area");
             normalAttributes = new BasicShapeAttributes(normalAttributes);
             normalAttributes.setDrawInterior(true);
             pgon.setAttributes(normalAttributes);
-            pgon.setHighlightAttributes(highlightAttributes);
+            pgon.setVisible(true);
             pgon.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
-            layer.addRenderable(pgon);           
+            
+           layer.addRenderable(pgon);           
 
             // Add the layer to the model.
             insertBeforeCompass(getWwd(), layer);
