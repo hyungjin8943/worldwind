@@ -62,6 +62,7 @@ public class Pyramids extends ApplicationTemplate {
 			// ********* sample Pyramids *******************
 
 			// Pyramid with equal axes, ABSOLUTE altitude mode
+			/*
 			Pyramid pyramid3 = new Pyramid(
 					Position.fromDegrees(40, -120, 80000), 50000, 50000, 50000);
 			pyramid3.setAltitudeMode(WorldWind.ABSOLUTE);
@@ -147,12 +148,19 @@ public class Pyramids extends ApplicationTemplate {
 			pyramid7.setValue(AVKey.DISPLAY_NAME,
 					"Scaled Pyramid with a pre-set orientation");
 			// layer.addRenderable(pyramid7);
+			*/
 
 			// Scaled, oriented pyramid in 3rd "quadrant" (-X, -Y, -Z)
+			double distance1 = distance(35.80410612, 35.80188729, 139.0953227,
+					139.0931937, 0, 0);
+			double distance2 = distance(35.80402527, 35.80615427, 139.0910647,
+					139.0931039, 0, 0);
+
 			Pyramid pyramid8 = new Pyramid(Position.fromDegrees(35.803285,
-					139.093283, 437.3439), 500, 437, 500,
+					139.093283, 350.7777), distance1, 350.7777, distance2,
 					Angle.fromRadians(2.27544665),
 					Angle.fromRadians(0.046574286), Angle.fromRadians(0));
+
 			pyramid8.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
 			pyramid8.setAttributes(attrs2);
 			pyramid8.setVisible(true);
@@ -243,5 +251,26 @@ public class Pyramids extends ApplicationTemplate {
 			pitch = _pitch;
 			roll = _roll;
 		}
+	}
+
+	public static double distance(double lat1, double lat2, double lon1,
+			double lon2, double el1, double el2) {
+
+		final int R = 6371; // Radius of the earth
+
+		Double latDistance = Math.toRadians(lat2 - lat1);
+		Double lonDistance = Math.toRadians(lon2 - lon1);
+		Double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+				+ Math.cos(Math.toRadians(lat1))
+				* Math.cos(Math.toRadians(lat2)) * Math.sin(lonDistance / 2)
+				* Math.sin(lonDistance / 2);
+		Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		double distance = R * c * 1000; // convert to meters
+
+		double height = el1 - el2;
+
+		distance = Math.pow(distance, 2) + Math.pow(height, 2);
+
+		return Math.sqrt(distance);
 	}
 }
