@@ -55,7 +55,7 @@ public class Pyramids extends ApplicationTemplate {
 			attrs.setDrawOutline(false);
 
 			// Create and set an attribute bundle.
-			ShapeAttributes attrs2 = new BasicShapeAttributes();
+			final ShapeAttributes attrs2 = new BasicShapeAttributes();
 			attrs2.setInteriorMaterial(Material.PINK);
 			attrs2.setInteriorOpacity(1);
 			attrs2.setEnableLighting(true);
@@ -144,34 +144,53 @@ public class Pyramids extends ApplicationTemplate {
 			 */
 
 			// Scaled, oriented pyramid in 3rd "quadrant" (-X, -Y, -Z)
-			
-			final WorldWindow worldWindow = getWwd();
-			final LayerPanel layerPanel = getLayerPanel();
-			
 			Timer timer = new Timer();
 			timer.scheduleAtFixedRate(new TimerTask() {
 
 				@Override
 				public void run() {
 					System.out.println("I would be called every second");
-					for (Pyramid pyramid : pyramidList) {
-						layer.addRenderable(pyramid);
-						
-						// Add the layer to the model.
-						insertBeforeCompass(worldWindow, layer);
+					for (Input input : dataList) {
+						double distance1 = distance(
+								input.quadrilateral_pointA_latitude,
+								input.quadrilateral_pointB_latitude,
+								input.quadrilateral_pointA_longitude,
+								input.quadrilateral_pointB_longitude, 0, 0);
+						double distance2 = distance(
+								input.quadrilateral_pointC_latitude,
+								input.quadrilateral_pointD_latitude,
+								input.quadrilateral_pointC_longitude,
+								input.quadrilateral_pointD_longitude, 0, 0);
 
-						// Update layer panel
-						layerPanel.update(worldWindow);
+						Pyramid pyramid = new Pyramid(Position.fromDegrees(
+								input.camera_latitude, input.camera_longitude,
+								input.camera_height * 1000), distance1,
+								input.camera_height * 1000, distance2, Angle
+										.fromRadians(input.azimuth), Angle
+										.fromRadians(input.pitch), Angle
+										.fromRadians(input.roll));
+
+						pyramid.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
+						pyramid.setAttributes(attrs2);
+						pyramid.setVisible(true);
+						pyramid.setValue(AVKey.DISPLAY_NAME,
+								"Scaled, oriented Pyramid in the 3rd 'quadrant' (-X, -Y, -Z)");
+						layer.addRenderable(pyramid);
 					}
 				}
 			}, 0, 1000);
+			
+			// Add the layer to the model.
+			insertBeforeCompass(getWwd(), layer);
+
+			// Update layer panel
+            this.getLayerPanel().update(this.getWwd());
 		}
 	}
 
 	public static void main(String[] args) {
 		File path = new File("output-3d-quatrilateral.csv");
 		readCSVFile(path.getAbsolutePath());
-		makePyramidList();
 		ApplicationTemplate.start("World Wind Pyramids", AppFrame.class);
 	}
 
@@ -205,43 +224,6 @@ public class Pyramids extends ApplicationTemplate {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-	
-	public static void makePyramidList() {
-		ShapeAttributes attrs2 = new BasicShapeAttributes();
-		attrs2.setInteriorMaterial(Material.PINK);
-		attrs2.setInteriorOpacity(1);
-		attrs2.setEnableLighting(true);
-		attrs2.setOutlineMaterial(Material.WHITE);
-		attrs2.setOutlineWidth(2d);
-		attrs2.setDrawOutline(false);
-		
-		for (Input input : dataList) {
-			double distance1 = distance(
-					input.quadrilateral_pointA_latitude,
-					input.quadrilateral_pointB_latitude,
-					input.quadrilateral_pointA_longitude,
-					input.quadrilateral_pointB_longitude, 0, 0);
-			double distance2 = distance(
-					input.quadrilateral_pointC_latitude,
-					input.quadrilateral_pointD_latitude,
-					input.quadrilateral_pointC_longitude,
-					input.quadrilateral_pointD_longitude, 0, 0);
-
-			Pyramid pyramid = new Pyramid(Position.fromDegrees(
-					input.camera_latitude, input.camera_longitude, input.camera_height * 1000), distance1,
-					input.camera_height * 1000, distance2, Angle
-							.fromRadians(input.azimuth), Angle
-							.fromRadians(input.pitch), Angle
-							.fromRadians(input.roll));
-
-			pyramid.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
-			pyramid.setAttributes(attrs2);
-			pyramid.setVisible(true);
-			pyramid.setValue(AVKey.DISPLAY_NAME,
-					"Scaled, oriented Pyramid in the 3rd 'quadrant' (-X, -Y, -Z)");
-			pyramidList.add(pyramid);
 		}
 	}
 
