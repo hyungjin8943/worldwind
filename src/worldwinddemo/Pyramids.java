@@ -13,6 +13,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import gov.nasa.worldwind.WorldWind;
 import gov.nasa.worldwind.avlist.AVKey;
@@ -38,7 +40,7 @@ public class Pyramids extends ApplicationTemplate {
 		public AppFrame() {
 			super(true, true, false);
 
-			RenderableLayer layer = new RenderableLayer();
+			final RenderableLayer layer = new RenderableLayer();
 
 			// Create and set an attribute bundle.
 			ShapeAttributes attrs = new BasicShapeAttributes();
@@ -51,7 +53,7 @@ public class Pyramids extends ApplicationTemplate {
 			attrs.setDrawOutline(false);
 
 			// Create and set an attribute bundle.
-			ShapeAttributes attrs2 = new BasicShapeAttributes();
+			final ShapeAttributes attrs2 = new BasicShapeAttributes();
 			attrs2.setInteriorMaterial(Material.PINK);
 			attrs2.setInteriorOpacity(1);
 			attrs2.setEnableLighting(true);
@@ -63,110 +65,118 @@ public class Pyramids extends ApplicationTemplate {
 
 			// Pyramid with equal axes, ABSOLUTE altitude mode
 			/*
-			Pyramid pyramid3 = new Pyramid(
-					Position.fromDegrees(40, -120, 80000), 50000, 50000, 50000);
-			pyramid3.setAltitudeMode(WorldWind.ABSOLUTE);
-			pyramid3.setAttributes(attrs);
-			pyramid3.setVisible(true);
-			pyramid3.setValue(AVKey.DISPLAY_NAME,
-					"Pyramid with equal axes, ABSOLUTE altitude mode");
-			// layer.addRenderable(pyramid3);
-
-			// Pyramid with equal axes, RELATIVE_TO_GROUND
-			Pyramid pyramid4 = new Pyramid(Position.fromDegrees(37.5, -115,
-					50000), 50000, 50000, 50000);
-			pyramid4.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
-			pyramid4.setAttributes(attrs);
-			pyramid4.setVisible(true);
-			pyramid4.setValue(AVKey.DISPLAY_NAME,
-					"Pyramid with equal axes, RELATIVE_TO_GROUND altitude mode");
-			// layer.addRenderable(pyramid4);
-
-			// Pyramid with equal axes, CLAMP_TO_GROUND
-			Pyramid pyramid5 = new Pyramid(
-					Position.fromDegrees(35, -110, 50000), 50000, 50000, 50000);
-			pyramid5.setAltitudeMode(WorldWind.CLAMP_TO_GROUND);
-			pyramid5.setAttributes(attrs);
-			pyramid5.setVisible(true);
-			pyramid5.setValue(AVKey.DISPLAY_NAME,
-					"Pyramid with equal axes, CLAMP_TO_GROUND altitude mode");
-			// layer.addRenderable(pyramid5);
-
-			// Pyramid with a texture, using Pyramid(position, height, width)
-			// constructor
-			Pyramid pyramid9 = new Pyramid(
-					Position.fromDegrees(0, -90, 600000), 1200000, 1200000);
-			pyramid9.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
-			pyramid9.setImageSources("gov/nasa/worldwindx/examples/images/500px-Checkerboard_pattern.png");
-			pyramid9.setAttributes(attrs);
-			pyramid9.setVisible(true);
-			pyramid9.setValue(AVKey.DISPLAY_NAME, "Pyramid with a texture");
-			// layer.addRenderable(pyramid9);
-
-			// Scaled Pyramid with default orientation
-			Pyramid pyramid = new Pyramid(Position.ZERO, 1000000, 500000,
-					100000);
-			pyramid.setAltitudeMode(WorldWind.ABSOLUTE);
-			pyramid.setAttributes(attrs);
-			pyramid.setVisible(true);
-			pyramid.setValue(AVKey.DISPLAY_NAME,
-					"Scaled Pyramid with default orientation");
-			// layer.addRenderable(pyramid);
-
-			// Scaled Pyramid with a pre-set orientation
-			Pyramid pyramid2 = new Pyramid(Position.fromDegrees(0, 30, 750000),
-					1000000, 500000, 100000, Angle.fromDegrees(90),
-					Angle.fromDegrees(45), Angle.fromDegrees(30));
-			pyramid2.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
-			pyramid2.setAttributes(attrs2);
-			pyramid2.setVisible(true);
-			pyramid2.setValue(AVKey.DISPLAY_NAME,
-					"Scaled Pyramid with a pre-set orientation");
-			// layer.addRenderable(pyramid2);
-
-			// Scaled Pyramid with a pre-set orientation
-			Pyramid pyramid6 = new Pyramid(
-					Position.fromDegrees(30, 30, 750000), 1000000, 500000,
-					100000, Angle.fromDegrees(90), Angle.fromDegrees(45),
-					Angle.fromDegrees(30));
-			pyramid6.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
-			pyramid6.setImageSources("gov/nasa/worldwindx/examples/images/500px-Checkerboard_pattern.png");
-			pyramid6.setAttributes(attrs2);
-			pyramid6.setVisible(true);
-			pyramid6.setValue(AVKey.DISPLAY_NAME,
-					"Scaled Pyramid with a pre-set orientation");
-			// layer.addRenderable(pyramid6);
-
-			// Scaled Pyramid with a pre-set orientation
-			Pyramid pyramid7 = new Pyramid(
-					Position.fromDegrees(60, 30, 750000), 1000000, 500000,
-					100000, Angle.fromDegrees(90), Angle.fromDegrees(45),
-					Angle.fromDegrees(30));
-			pyramid7.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
-			pyramid7.setAttributes(attrs2);
-			pyramid7.setVisible(true);
-			pyramid7.setValue(AVKey.DISPLAY_NAME,
-					"Scaled Pyramid with a pre-set orientation");
-			// layer.addRenderable(pyramid7);
-			*/
+			 * Pyramid pyramid3 = new Pyramid( Position.fromDegrees(40, -120,
+			 * 80000), 50000, 50000, 50000);
+			 * pyramid3.setAltitudeMode(WorldWind.ABSOLUTE);
+			 * pyramid3.setAttributes(attrs); pyramid3.setVisible(true);
+			 * pyramid3.setValue(AVKey.DISPLAY_NAME,
+			 * "Pyramid with equal axes, ABSOLUTE altitude mode"); //
+			 * layer.addRenderable(pyramid3);
+			 * 
+			 * // Pyramid with equal axes, RELATIVE_TO_GROUND Pyramid pyramid4 =
+			 * new Pyramid(Position.fromDegrees(37.5, -115, 50000), 50000,
+			 * 50000, 50000);
+			 * pyramid4.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
+			 * pyramid4.setAttributes(attrs); pyramid4.setVisible(true);
+			 * pyramid4.setValue(AVKey.DISPLAY_NAME,
+			 * "Pyramid with equal axes, RELATIVE_TO_GROUND altitude mode"); //
+			 * layer.addRenderable(pyramid4);
+			 * 
+			 * // Pyramid with equal axes, CLAMP_TO_GROUND Pyramid pyramid5 =
+			 * new Pyramid( Position.fromDegrees(35, -110, 50000), 50000, 50000,
+			 * 50000); pyramid5.setAltitudeMode(WorldWind.CLAMP_TO_GROUND);
+			 * pyramid5.setAttributes(attrs); pyramid5.setVisible(true);
+			 * pyramid5.setValue(AVKey.DISPLAY_NAME,
+			 * "Pyramid with equal axes, CLAMP_TO_GROUND altitude mode"); //
+			 * layer.addRenderable(pyramid5);
+			 * 
+			 * // Pyramid with a texture, using Pyramid(position, height, width)
+			 * // constructor Pyramid pyramid9 = new Pyramid(
+			 * Position.fromDegrees(0, -90, 600000), 1200000, 1200000);
+			 * pyramid9.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
+			 * pyramid9.setImageSources
+			 * ("gov/nasa/worldwindx/examples/images/500px-Checkerboard_pattern.png"
+			 * ); pyramid9.setAttributes(attrs); pyramid9.setVisible(true);
+			 * pyramid9.setValue(AVKey.DISPLAY_NAME, "Pyramid with a texture");
+			 * // layer.addRenderable(pyramid9);
+			 * 
+			 * // Scaled Pyramid with default orientation Pyramid pyramid = new
+			 * Pyramid(Position.ZERO, 1000000, 500000, 100000);
+			 * pyramid.setAltitudeMode(WorldWind.ABSOLUTE);
+			 * pyramid.setAttributes(attrs); pyramid.setVisible(true);
+			 * pyramid.setValue(AVKey.DISPLAY_NAME,
+			 * "Scaled Pyramid with default orientation"); //
+			 * layer.addRenderable(pyramid);
+			 * 
+			 * // Scaled Pyramid with a pre-set orientation Pyramid pyramid2 =
+			 * new Pyramid(Position.fromDegrees(0, 30, 750000), 1000000, 500000,
+			 * 100000, Angle.fromDegrees(90), Angle.fromDegrees(45),
+			 * Angle.fromDegrees(30));
+			 * pyramid2.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
+			 * pyramid2.setAttributes(attrs2); pyramid2.setVisible(true);
+			 * pyramid2.setValue(AVKey.DISPLAY_NAME,
+			 * "Scaled Pyramid with a pre-set orientation"); //
+			 * layer.addRenderable(pyramid2);
+			 * 
+			 * // Scaled Pyramid with a pre-set orientation Pyramid pyramid6 =
+			 * new Pyramid( Position.fromDegrees(30, 30, 750000), 1000000,
+			 * 500000, 100000, Angle.fromDegrees(90), Angle.fromDegrees(45),
+			 * Angle.fromDegrees(30));
+			 * pyramid6.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
+			 * pyramid6.setImageSources
+			 * ("gov/nasa/worldwindx/examples/images/500px-Checkerboard_pattern.png"
+			 * ); pyramid6.setAttributes(attrs2); pyramid6.setVisible(true);
+			 * pyramid6.setValue(AVKey.DISPLAY_NAME,
+			 * "Scaled Pyramid with a pre-set orientation"); //
+			 * layer.addRenderable(pyramid6);
+			 * 
+			 * // Scaled Pyramid with a pre-set orientation Pyramid pyramid7 =
+			 * new Pyramid( Position.fromDegrees(60, 30, 750000), 1000000,
+			 * 500000, 100000, Angle.fromDegrees(90), Angle.fromDegrees(45),
+			 * Angle.fromDegrees(30));
+			 * pyramid7.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
+			 * pyramid7.setAttributes(attrs2); pyramid7.setVisible(true);
+			 * pyramid7.setValue(AVKey.DISPLAY_NAME,
+			 * "Scaled Pyramid with a pre-set orientation"); //
+			 * layer.addRenderable(pyramid7);
+			 */
 
 			// Scaled, oriented pyramid in 3rd "quadrant" (-X, -Y, -Z)
-			double distance1 = distance(35.80410612, 35.80188729, 139.0953227,
-					139.0931937, 0, 0);
-			double distance2 = distance(35.80402527, 35.80615427, 139.0910647,
-					139.0931039, 0, 0);
 
-			Pyramid pyramid8 = new Pyramid(Position.fromDegrees(35.803285,
-					139.093283, 350.7777), distance1, 350.7777, distance2,
-					Angle.fromRadians(2.27544665),
-					Angle.fromRadians(0.046574286), Angle.fromRadians(0));
+			Timer timer = new Timer();
+			timer.scheduleAtFixedRate(new TimerTask() {
 
-			pyramid8.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
-			pyramid8.setAttributes(attrs2);
-			pyramid8.setVisible(true);
-			pyramid8.setValue(AVKey.DISPLAY_NAME,
-					"Scaled, oriented Pyramid in the 3rd 'quadrant' (-X, -Y, -Z)");
-			layer.addRenderable(pyramid8);
+				@Override
+				public void run() {
+					System.out.println("I would be called every second");
+					for (Input input : dataList) {
+						double distance1 = distance(
+								input.quadrilateral_pointA_latitude,
+								input.quadrilateral_pointB_latitude,
+								input.quadrilateral_pointA_longitude,
+								input.quadrilateral_pointB_longitude, 0, 0);
+						double distance2 = distance(
+								input.quadrilateral_pointC_latitude,
+								input.quadrilateral_pointD_latitude,
+								input.quadrilateral_pointC_longitude,
+								input.quadrilateral_pointD_longitude, 0, 0);
+
+						Pyramid pyramid8 = new Pyramid(Position.fromDegrees(
+								input.camera_latitude, input.camera_longitude, input.camera_height * 1000), distance1,
+								input.camera_height * 1000, distance2, Angle
+										.fromRadians(input.azimuth), Angle
+										.fromRadians(input.pitch), Angle
+										.fromRadians(input.roll));
+
+						pyramid8.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
+						pyramid8.setAttributes(attrs2);
+						pyramid8.setVisible(true);
+						pyramid8.setValue(AVKey.DISPLAY_NAME,
+								"Scaled, oriented Pyramid in the 3rd 'quadrant' (-X, -Y, -Z)");
+						layer.addRenderable(pyramid8);
+					}
+				}
+			}, 0, 1000);
 
 			// Add the layer to the model.
 			insertBeforeCompass(getWwd(), layer);
