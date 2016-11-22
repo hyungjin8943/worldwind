@@ -219,8 +219,8 @@ public class Pyramids extends ApplicationTemplate {
 
 	public static void makePyramidList() {
 		ShapeAttributes attrs2 = new BasicShapeAttributes();
-		attrs2.setInteriorMaterial(Material.PINK);
-		attrs2.setInteriorOpacity(1);
+		attrs2.setInteriorMaterial(Material.YELLOW);
+		attrs2.setInteriorOpacity(0.3);
 		attrs2.setEnableLighting(true);
 		attrs2.setOutlineMaterial(Material.WHITE);
 		attrs2.setOutlineWidth(2d);
