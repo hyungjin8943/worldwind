@@ -20,9 +20,11 @@ import gov.nasa.worldwind.WorldWind;
 import gov.nasa.worldwind.WorldWindow;
 import gov.nasa.worldwind.avlist.AVKey;
 import gov.nasa.worldwind.geom.Angle;
+import gov.nasa.worldwind.geom.LatLon;
 import gov.nasa.worldwind.geom.Position;
 import gov.nasa.worldwind.layers.RenderableLayer;
 import gov.nasa.worldwind.render.BasicShapeAttributes;
+import gov.nasa.worldwind.render.ExtrudedPolygon;
 import gov.nasa.worldwind.render.Material;
 import gov.nasa.worldwind.render.Pyramid;
 import gov.nasa.worldwind.render.ShapeAttributes;
@@ -153,6 +155,7 @@ public class Pyramids extends ApplicationTemplate {
 			timer.scheduleAtFixedRate(new TimerTask() {
 
 				int index = 0;
+
 				@Override
 				public void run() {
 					System.out.println("Every second index : " + index);
@@ -162,13 +165,14 @@ public class Pyramids extends ApplicationTemplate {
 						pyramidList.get(index - 1).setVisible(false);
 					}
 
-					
 					if (index == pyramidList.size() - 1) {
 						timer.cancel();
 					}
 					index++;
 				}
 			}, 0, 1000);
+			
+			makePolygon(layer);	
 
 			// Add the layer to the model.
 			insertBeforeCompass(getWwd(), layer);
@@ -251,6 +255,60 @@ public class Pyramids extends ApplicationTemplate {
 					"Scaled, oriented Pyramid in the 3rd 'quadrant' (-X, -Y, -Z)");
 			pyramidList.add(pyramid);
 		}
+	}
+
+	public static void makePolygon(RenderableLayer layer) {
+		ShapeAttributes sideAttributes = new BasicShapeAttributes();
+        sideAttributes.setInteriorMaterial(Material.MAGENTA);
+        sideAttributes.setOutlineOpacity(0.5);
+        sideAttributes.setInteriorOpacity(0.5);
+        sideAttributes.setOutlineMaterial(Material.GREEN);
+        sideAttributes.setOutlineWidth(2);
+        sideAttributes.setDrawOutline(true);
+        sideAttributes.setDrawInterior(true);
+        sideAttributes.setEnableLighting(true);
+        
+        ShapeAttributes sideHighlightAttributes = new BasicShapeAttributes(sideAttributes);
+        sideHighlightAttributes.setOutlineMaterial(Material.WHITE);
+        sideHighlightAttributes.setOutlineOpacity(1);
+
+        ShapeAttributes capAttributes = new BasicShapeAttributes(sideAttributes);
+        capAttributes.setInteriorMaterial(Material.YELLOW);
+        capAttributes.setInteriorOpacity(0.8);
+        capAttributes.setDrawInterior(true);
+        capAttributes.setEnableLighting(true);
+        
+		ArrayList<Position> pathPositions = new ArrayList<Position>();
+		pathPositions.add(Position.fromDegrees(dataList.get(0).quadrilateral_pointA_latitude, dataList.get(0).quadrilateral_pointA_longitude, 0));
+		pathPositions.add(Position.fromDegrees(dataList.get(0).quadrilateral_pointB_latitude, dataList.get(0).quadrilateral_pointB_longitude, 0));
+		pathPositions.add(Position.fromDegrees(dataList.get(0).quadrilateral_pointC_latitude, dataList.get(0).quadrilateral_pointC_longitude, 0));
+		pathPositions.add(Position.fromDegrees(dataList.get(0).quadrilateral_pointD_latitude, dataList.get(0).quadrilateral_pointD_longitude, 0));
+		pathPositions.add(Position.fromDegrees(dataList.get(0).quadrilateral_pointA_latitude, dataList.get(0).quadrilateral_pointA_longitude, 0));
+		ExtrudedPolygon pgon = new ExtrudedPolygon(pathPositions);
+		//
+		// pathPositions.clear();
+		// pathPositions.add(Position.fromDegrees(29, -106.4, 4e4));
+		// pathPositions.add(Position.fromDegrees(30, -106.4, 4e4));
+		// pathPositions.add(Position.fromDegrees(29, -106.8, 7e4));
+		// pathPositions.add(Position.fromDegrees(29, -106.4, 4e4));
+		// pgon.addInnerBoundary(pathPositions);
+		// pgon.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
+		// pgon.setSideAttributes(sideAttributes);
+		// pgon.setSideHighlightAttributes(sideHighlightAttributes);
+		// pgon.setCapAttributes(capAttributes);
+		// layer.addRenderable(pgon);
+
+		ArrayList<LatLon> pathLocations = new ArrayList<LatLon>();
+		pathLocations.add(LatLon.fromDegrees(dataList.get(0).quadrilateral_pointA_latitude, dataList.get(0).quadrilateral_pointA_longitude));
+		pathLocations.add(LatLon.fromDegrees(dataList.get(0).quadrilateral_pointB_latitude, dataList.get(0).quadrilateral_pointB_longitude));
+		pathLocations.add(LatLon.fromDegrees(dataList.get(0).quadrilateral_pointC_latitude, dataList.get(0).quadrilateral_pointC_longitude));
+		pathLocations.add(LatLon.fromDegrees(dataList.get(0).quadrilateral_pointD_latitude, dataList.get(0).quadrilateral_pointD_longitude));
+		pathLocations.add(LatLon.fromDegrees(dataList.get(0).quadrilateral_pointA_latitude, dataList.get(0).quadrilateral_pointA_longitude));
+		pgon = new ExtrudedPolygon(pathLocations, (double) 300);
+		pgon.setSideAttributes(sideAttributes);
+		pgon.setSideHighlightAttributes(sideHighlightAttributes);
+		pgon.setCapAttributes(capAttributes);
+		layer.addRenderable(pgon);
 	}
 
 	public static class Input {
